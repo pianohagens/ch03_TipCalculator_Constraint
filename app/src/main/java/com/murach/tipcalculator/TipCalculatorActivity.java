@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -42,6 +43,16 @@ public class TipCalculatorActivity extends Activity
     //declare a constant for the tag parameter_02/05/2018
     private static final String TAG = "TipCalculatorActivity";
 
+    // 03052018 define rounding constants
+    private final int ROUND_NONE = 0;
+    private final int ROUND_TIP = 1;
+    private final int ROUND_TOTAL = 2;
+
+    // 03052018 Setup the preferences
+    private SharedPreferences prefs;
+    private boolean rememberTipPercent = true;
+    private int rounding = ROUND_NONE;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +79,12 @@ public class TipCalculatorActivity extends Activity
         //02/05/2018 adding a toast
         Toast t = Toast.makeText(this, "onCreate Method", Toast.LENGTH_LONG);
         t.show();
+
+        //03052018 set the default values for the prefs
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        //03052018 get the default shared prefs object
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
