@@ -3,8 +3,12 @@ package com.murach.tipcalculator;
 import java.text.NumberFormat;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.widget.Toast;
 
 public class TipCalculatorActivity extends Activity
         implements OnEditorActionListener, OnClickListener {
@@ -29,9 +34,13 @@ public class TipCalculatorActivity extends Activity
     // define the SharedPreferences object
     private SharedPreferences savedValues;
 
+
     // define instance variables that should be saved
     private String billAmountString = "";
     private float tipPercent = .15f;
+
+    //declare a constant for the tag parameter_02/05/2018
+    private static final String TAG = "TipCalculatorActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,12 @@ public class TipCalculatorActivity extends Activity
 
         // get SharedPreferences object
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
+
+        //02/05/2018 adding Log for developer to track bugs
+        Log.d(TAG, "onCreate method executed");
+        //02/05/2018 adding a toast
+        Toast t = Toast.makeText(this, "onCreate Method", Toast.LENGTH_LONG);
+        t.show();
     }
 
     @Override
@@ -64,6 +79,11 @@ public class TipCalculatorActivity extends Activity
         editor.commit();
 
         super.onPause();
+        //02/05/2018 adding Log
+        Log.d(TAG, "onPause executed");
+        //02/05/2018 adding a toast
+        Toast t = Toast.makeText(this, "onPause method", Toast.LENGTH_LONG);
+        t.show();
     }
 
     @Override
@@ -79,6 +99,9 @@ public class TipCalculatorActivity extends Activity
 
         // calculate and display
         calculateAndDisplay();
+        //02/05/2018 adding a toast
+        Toast t = Toast.makeText(this, "onResume method", Toast.LENGTH_LONG);
+        t.show();
     }
 
     public void calculateAndDisplay() {
@@ -128,4 +151,25 @@ public class TipCalculatorActivity extends Activity
                 break;
         }
     }
+    // inflate the menu 03/01/2018
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.tip_cal_menu, menu);
+        return true;
+    }
+    //handle the menu items by the id 03/01/2018
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.tip_cal_menu:
+                startActivity(new Intent(getApplicationContext(),
+                        SettingsActivity.class ));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 }
