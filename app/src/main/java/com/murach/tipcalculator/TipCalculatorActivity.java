@@ -31,6 +31,7 @@ public class TipCalculatorActivity extends Activity
     private Button   percentDownButton;
     private TextView tipTextView;
     private TextView totalTextView;
+    private TextView inputName;
 
     // define the SharedPreferences object
     private SharedPreferences savedValues;
@@ -65,6 +66,7 @@ public class TipCalculatorActivity extends Activity
         percentDownButton = (Button) findViewById(R.id.percentDownButton);
         tipTextView = (TextView) findViewById(R.id.tipTextView);
         totalTextView = (TextView) findViewById(R.id.totalTextView);
+        inputName = (TextView) findViewById(R.id.inputName);
 
         // set the listeners
         billAmountEditText.setOnEditorActionListener(this);
@@ -85,8 +87,23 @@ public class TipCalculatorActivity extends Activity
 
         //03052018 get the default shared prefs object
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-    }
 
+        //load the fragment layout
+        setContentView(R.layout.activity_setting_fragment);
+
+    }
+    // Assignment 8 added SettingActivity
+    public void displaySetting(View view){
+        //start the setting activity
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+    public void readSettings(View view){
+        //read the value where stored in a key value pair
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String setting1 = prefs.getString("example_text", "John Smith");
+
+        Toast.makeText(this, setting1, Toast.LENGTH_LONG).show();
+    }
     @Override
     public void onPause() {
         // save the instance variables       
@@ -188,7 +205,7 @@ public class TipCalculatorActivity extends Activity
                 break;
         }
     }
-    // inflate the menu 03/01/2018
+    // inflate the menu 03/01/2018 _adding menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.tip_cal_menu, menu);

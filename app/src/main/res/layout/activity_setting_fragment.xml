@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+    tools:context="com.murach.tipcalculator.SettingFragment">
+
+    <Fragment
+        class="com.murach.tipcalculator.SettingFragment"
+        android:id="@+id/titles"
+        android:layout_weight="1px"
+        android:layout_width="1px"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/details"
+        android:layout_weight="1px"
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_orange_dark" />
+
+</android.support.constraint.ConstraintLayout>
